@@ -1,19 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MoonBuck.DataAccess.Data;
+using MoonBuck.DataAccess.Repository;
+using MoonBuck.DataAccess.Repository.IRepository;
 using MoonBuck.Models;
 
-namespace MoonBuck.Controllers
+namespace MoonBuck.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class RoleController : Controller
     {
-        private readonly ApplicationDbContext _db;
-        public RoleController(ApplicationDbContext db)
+        private readonly IUnitOfWork _unitOfWork;
+        public RoleController(IUnitOfWork unitOfWork)
         {
-            _db = db;
+            _unitOfWork = unitOfWork;
         }
         public IActionResult Index()
         {
-            List<Role> roleList = _db.Roles.ToList();
+            List<Role> roleList = _unitOfWork.Role.GetAll().ToList();
             return View(roleList);
         }
         public IActionResult Create()
@@ -29,12 +32,12 @@ namespace MoonBuck.Controllers
             }
             if (ModelState.IsValid)
             {
-                _db.Roles.Add(obj);
-                _db.SaveChanges();
+                _unitOfWork.Role.Add(obj);
+                _unitOfWork.Save();
                 TempData["success"] = "Role added successfully";
                 return RedirectToAction("Index");
             }
-            return View();  
+            return View();
         }
 
         public IActionResult Edit(int? id)
@@ -43,7 +46,7 @@ namespace MoonBuck.Controllers
             {
                 return NotFound();
             }
-            Role? roleFromDb = _db.Roles.Find(id);
+            Role? roleFromDb = _unitOfWork.Role.Get(u => u.Id == id);
             //Role? roleFromDb1 = _db.Roles.FirstOrDefault(u => u.Id == id);
             //Role? roleFromDb2 = _db.Roles.Where(u => u.Id == id).FirstOrDefault();
             if (roleFromDb == null)
@@ -57,8 +60,8 @@ namespace MoonBuck.Controllers
         {
             if (ModelState.IsValid)
             {
-                _db.Roles.Update(obj);
-                _db.SaveChanges();
+                _unitOfWork.Role.Update(obj);
+                _unitOfWork.Save();
                 TempData["success"] = "Role updated successfully";
                 return RedirectToAction("Index");
             }
@@ -70,7 +73,7 @@ namespace MoonBuck.Controllers
             {
                 return NotFound();
             }
-            Role? roleFromDb = _db.Roles.Find(id);
+            Role? roleFromDb = _unitOfWork.Role.Get(u => u.Id == id);
             if (roleFromDb == null)
             {
                 return NotFound();
@@ -80,14 +83,14 @@ namespace MoonBuck.Controllers
         [HttpPost, ActionName("Delete")]
         public IActionResult DeletePOST(int? id)
         {
-            Role? obj = _db.Roles.Find(id);
+            Role? obj = _unitOfWork.Role.Get(u => u.Id == id);
             if (obj == null)
             {
                 return NotFound();
             }
-            _db.Roles.Remove(obj);
+            _unitOfWork.Role.Remove(obj);
             TempData["success"] = "Role deleted successfully";
-            _db.SaveChanges();
+            _unitOfWork.Save();
             return RedirectToAction("Index");
         }
     }

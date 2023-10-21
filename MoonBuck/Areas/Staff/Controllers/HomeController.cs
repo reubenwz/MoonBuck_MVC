@@ -2,8 +2,9 @@
 using MoonBuck.Models;
 using System.Diagnostics;
 
-namespace MoonBuck.Controllers
+namespace MoonBuck.Areas.Staff.Controllers
 {
+    [Area("Staff")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
