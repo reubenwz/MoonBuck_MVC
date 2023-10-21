@@ -83,32 +83,25 @@ namespace MoonBuck.Areas.Admin.Controllers
             }
         }
 
-  
+        #region API Call
+        [HttpGet]
+        public IActionResult GetAll() 
+        {
+            List<Slot> slotList = _unitOfWork.Slot.GetAll(includeProperties: "Role").ToList();
+            return Json(new { data = slotList });
+        }
+        [HttpDelete]
         public IActionResult Delete(int? id)
         {
-            if (id == null || id == 0)
+            var slotToBeDeleted = _unitOfWork.Slot.Get(u => u.Id == id);
+            if (slotToBeDeleted == null)
             {
-                return NotFound();
+                return Json(new { success = false, message = "Error while deleting" });
             }
-            Slot? slotFromDb = _unitOfWork.Slot.Get(u => u.Id == id);
-            if (slotFromDb == null)
-            {
-                return NotFound();
-            }
-            return View(slotFromDb);
-        }
-        [HttpPost, ActionName("Delete")]
-        public IActionResult DeletePOST(int? id)
-        {
-            Slot? obj = _unitOfWork.Slot.Get(u => u.Id == id);
-            if (obj == null)
-            {
-                return NotFound();
-            }
-            _unitOfWork.Slot.Remove(obj);
-            TempData["success"] = "Slot deleted successfully";
+            _unitOfWork.Slot.Remove(slotToBeDeleted);
             _unitOfWork.Save();
-            return RedirectToAction("Index");
+            return Json(new { success = true, message = "delete successful" });
         }
+        #endregion
     }
 }
