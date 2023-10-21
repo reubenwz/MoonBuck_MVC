@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using MoonBuck.DataAccess.Repository.IRepository;
 using MoonBuck.Models;
+using MoonBuck.Models.ViewModels;
 using System.Diagnostics;
 
 namespace MoonBuck.Areas.Staff.Controllers
@@ -22,6 +24,25 @@ namespace MoonBuck.Areas.Staff.Controllers
             List<Slot> slotList = _unitOfWork.Slot.GetAll(includeProperties: "Role").ToList();
 
             return View(slotList);
+        }
+        public IActionResult Details(int id)
+        {
+            SlotVM slotVM = new()
+            {
+                RoleList = _unitOfWork.Role
+                    .GetAll().Select(u => new SelectListItem
+                    {
+                        Text = u.Name,
+                        Value = u.Id.ToString()
+                    }),
+                Slot = new Slot()
+                {
+                    StartTime = DateTime.Now,
+                    EndTime = DateTime.Now.AddHours(1)
+                }
+            };
+            slotVM.Slot = _unitOfWork.Slot.Get(u => u.Id == id);
+            return View(slotVM);
         }
 
         public IActionResult Privacy()
