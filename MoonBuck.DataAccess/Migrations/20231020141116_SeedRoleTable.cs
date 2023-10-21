@@ -4,7 +4,7 @@
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace MoonBuck.Migrations
+namespace MoonBuck.DataAccess.Migrations
 {
     /// <inheritdoc />
     public partial class SeedRoleTable : Migration

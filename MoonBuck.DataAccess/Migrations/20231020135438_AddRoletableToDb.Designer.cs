@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using MoonBuck.Data;
+using MoonBuck.DataAccess.Data;
 
 #nullable disable
 
-namespace MoonBuck.Migrations
+namespace MoonBuck.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20231020135438_AddRoletableToDb")]

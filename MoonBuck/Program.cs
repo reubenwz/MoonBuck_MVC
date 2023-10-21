@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using MoonBuck.Data;
+using MoonBuck.DataAccess.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MoonBuck.Data;
+using MoonBuck.DataAccess.Data;
 using MoonBuck.Models;
 
 namespace MoonBuck.Controllers

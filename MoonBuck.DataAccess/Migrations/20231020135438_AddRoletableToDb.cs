@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace MoonBuck.Migrations
+namespace MoonBuck.DataAccess.Migrations
 {
     /// <inheritdoc />
     public partial class AddRoletableToDb : Migration

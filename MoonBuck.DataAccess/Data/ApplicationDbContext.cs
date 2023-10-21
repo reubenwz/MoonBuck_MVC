@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MoonBuck.Models;
 
-namespace MoonBuck.Data
+namespace MoonBuck.DataAccess.Data
 {
     public class ApplicationDbContext : DbContext
     {
