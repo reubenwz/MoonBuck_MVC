@@ -19,7 +19,15 @@ namespace MoonBuck.DataAccess.Repository
 
         public void Update(Slot obj)
         {
-            _db.Slots.Update(obj);
+            var objFromDb = _db.Slots.FirstOrDefault(u => u.Id == obj.Id);  
+            if (objFromDb != null)
+            {
+                objFromDb.CafeName = obj.CafeName;
+                objFromDb.StartTime = obj.StartTime;
+                objFromDb.EndTime = obj.EndTime;
+                objFromDb.IsFilled = obj.IsFilled;
+                objFromDb.PayRate = obj.PayRate;
+            }
         }
     }
 }

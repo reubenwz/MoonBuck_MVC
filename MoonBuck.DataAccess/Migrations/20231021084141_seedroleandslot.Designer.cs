@@ -12,8 +12,8 @@ using MoonBuck.DataAccess.Data;
 namespace MoonBuck.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231021074112_AddRoleAndSlotToDb")]
-    partial class AddRoleAndSlotToDb
+    [Migration("20231021084141_seedroleandslot")]
+    partial class seedroleandslot
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -87,10 +87,15 @@ namespace MoonBuck.DataAccess.Migrations
                     b.Property<double>("PayRate")
                         .HasColumnType("float");
 
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
 
                     b.ToTable("Slots");
 
@@ -99,38 +104,53 @@ namespace MoonBuck.DataAccess.Migrations
                         {
                             Id = 1,
                             CafeName = "MoonBuck Toa Payoh",
-                            EndTime = new DateTime(2023, 10, 23, 1, 17, 12, 390, DateTimeKind.Local).AddTicks(3714),
+                            EndTime = new DateTime(2023, 10, 23, 2, 17, 41, 326, DateTimeKind.Local).AddTicks(4691),
                             IsFilled = false,
                             PayRate = 9.0,
-                            StartTime = new DateTime(2023, 10, 22, 15, 41, 12, 390, DateTimeKind.Local).AddTicks(3697)
+                            RoleId = 1,
+                            StartTime = new DateTime(2023, 10, 22, 16, 41, 41, 326, DateTimeKind.Local).AddTicks(4677)
                         },
                         new
                         {
                             Id = 2,
                             CafeName = "MoonBuck Toa Payoh",
-                            EndTime = new DateTime(2023, 10, 24, 1, 17, 12, 390, DateTimeKind.Local).AddTicks(3717),
+                            EndTime = new DateTime(2023, 10, 24, 2, 17, 41, 326, DateTimeKind.Local).AddTicks(4693),
                             IsFilled = false,
                             PayRate = 9.0,
-                            StartTime = new DateTime(2023, 10, 23, 15, 41, 12, 390, DateTimeKind.Local).AddTicks(3718)
+                            RoleId = 2,
+                            StartTime = new DateTime(2023, 10, 23, 16, 41, 41, 326, DateTimeKind.Local).AddTicks(4693)
                         },
                         new
                         {
                             Id = 3,
                             CafeName = "MoonBuck Tampines",
-                            EndTime = new DateTime(2023, 10, 24, 1, 17, 12, 390, DateTimeKind.Local).AddTicks(3720),
+                            EndTime = new DateTime(2023, 10, 24, 2, 17, 41, 326, DateTimeKind.Local).AddTicks(4695),
                             IsFilled = false,
                             PayRate = 9.0,
-                            StartTime = new DateTime(2023, 10, 23, 15, 41, 12, 390, DateTimeKind.Local).AddTicks(3721)
+                            RoleId = 2,
+                            StartTime = new DateTime(2023, 10, 23, 16, 41, 41, 326, DateTimeKind.Local).AddTicks(4695)
                         },
                         new
                         {
                             Id = 4,
                             CafeName = "MoonBuck Hougang",
-                            EndTime = new DateTime(2023, 10, 25, 1, 17, 12, 390, DateTimeKind.Local).AddTicks(3722),
+                            EndTime = new DateTime(2023, 10, 25, 2, 17, 41, 326, DateTimeKind.Local).AddTicks(4697),
                             IsFilled = false,
                             PayRate = 9.0,
-                            StartTime = new DateTime(2023, 10, 24, 15, 41, 12, 390, DateTimeKind.Local).AddTicks(3723)
+                            RoleId = 2,
+                            StartTime = new DateTime(2023, 10, 24, 16, 41, 41, 326, DateTimeKind.Local).AddTicks(4697)
                         });
+                });
+
+            modelBuilder.Entity("MoonBuck.Models.Slot", b =>
+                {
+                    b.HasOne("MoonBuck.Models.Role", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
                 });
 #pragma warning restore 612, 618
         }

@@ -26,7 +26,8 @@ namespace MoonBuck.DataAccess.Data
                     StartTime = DateTime.Now.AddDays(1),
                     EndTime = DateTime.Now.AddDays(1.4),
                     IsFilled = false,
-                    PayRate = 9
+                    PayRate = 9,
+                    RoleId = 1,
                 },
                 new Slot
                 {
@@ -35,7 +36,8 @@ namespace MoonBuck.DataAccess.Data
                     StartTime = DateTime.Now.AddDays(2),
                     EndTime = DateTime.Now.AddDays(2.4),
                     IsFilled = false,
-                    PayRate = 9
+                    PayRate = 9,
+                    RoleId = 2
                 },
                 new Slot
                 {
@@ -44,7 +46,8 @@ namespace MoonBuck.DataAccess.Data
                     StartTime = DateTime.Now.AddDays(2),
                     EndTime = DateTime.Now.AddDays(2.4),
                     IsFilled = false,
-                    PayRate = 9
+                    PayRate = 9,
+                    RoleId = 2
                 },
                 new Slot
                 {
@@ -53,7 +56,8 @@ namespace MoonBuck.DataAccess.Data
                     StartTime = DateTime.Now.AddDays(3),
                     EndTime = DateTime.Now.AddDays(3.4),
                     IsFilled = false,
-                    PayRate = 9
+                    PayRate = 9,
+                    RoleId = 2
                 }
                 );
         }

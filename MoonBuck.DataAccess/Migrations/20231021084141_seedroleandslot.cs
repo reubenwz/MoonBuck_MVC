@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace MoonBuck.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class AddRoleAndSlotToDb : Migration
+    public partial class seedroleandslot : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -37,11 +37,18 @@ namespace MoonBuck.DataAccess.Migrations
                     StartTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsFilled = table.Column<bool>(type: "bit", nullable: false),
-                    PayRate = table.Column<double>(type: "float", nullable: false)
+                    PayRate = table.Column<double>(type: "float", nullable: false),
+                    RoleId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Slots", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Slots_Roles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "Roles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
@@ -56,24 +63,29 @@ namespace MoonBuck.DataAccess.Migrations
 
             migrationBuilder.InsertData(
                 table: "Slots",
-                columns: new[] { "Id", "CafeName", "EndTime", "IsFilled", "PayRate", "StartTime" },
+                columns: new[] { "Id", "CafeName", "EndTime", "IsFilled", "PayRate", "RoleId", "StartTime" },
                 values: new object[,]
                 {
-                    { 1, "MoonBuck Toa Payoh", new DateTime(2023, 10, 23, 1, 17, 12, 390, DateTimeKind.Local).AddTicks(3714), false, 9.0, new DateTime(2023, 10, 22, 15, 41, 12, 390, DateTimeKind.Local).AddTicks(3697) },
-                    { 2, "MoonBuck Toa Payoh", new DateTime(2023, 10, 24, 1, 17, 12, 390, DateTimeKind.Local).AddTicks(3717), false, 9.0, new DateTime(2023, 10, 23, 15, 41, 12, 390, DateTimeKind.Local).AddTicks(3718) },
-                    { 3, "MoonBuck Tampines", new DateTime(2023, 10, 24, 1, 17, 12, 390, DateTimeKind.Local).AddTicks(3720), false, 9.0, new DateTime(2023, 10, 23, 15, 41, 12, 390, DateTimeKind.Local).AddTicks(3721) },
-                    { 4, "MoonBuck Hougang", new DateTime(2023, 10, 25, 1, 17, 12, 390, DateTimeKind.Local).AddTicks(3722), false, 9.0, new DateTime(2023, 10, 24, 15, 41, 12, 390, DateTimeKind.Local).AddTicks(3723) }
+                    { 1, "MoonBuck Toa Payoh", new DateTime(2023, 10, 23, 2, 17, 41, 326, DateTimeKind.Local).AddTicks(4691), false, 9.0, 1, new DateTime(2023, 10, 22, 16, 41, 41, 326, DateTimeKind.Local).AddTicks(4677) },
+                    { 2, "MoonBuck Toa Payoh", new DateTime(2023, 10, 24, 2, 17, 41, 326, DateTimeKind.Local).AddTicks(4693), false, 9.0, 2, new DateTime(2023, 10, 23, 16, 41, 41, 326, DateTimeKind.Local).AddTicks(4693) },
+                    { 3, "MoonBuck Tampines", new DateTime(2023, 10, 24, 2, 17, 41, 326, DateTimeKind.Local).AddTicks(4695), false, 9.0, 2, new DateTime(2023, 10, 23, 16, 41, 41, 326, DateTimeKind.Local).AddTicks(4695) },
+                    { 4, "MoonBuck Hougang", new DateTime(2023, 10, 25, 2, 17, 41, 326, DateTimeKind.Local).AddTicks(4697), false, 9.0, 2, new DateTime(2023, 10, 24, 16, 41, 41, 326, DateTimeKind.Local).AddTicks(4697) }
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Slots_RoleId",
+                table: "Slots",
+                column: "RoleId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Roles");
+                name: "Slots");
 
             migrationBuilder.DropTable(
-                name: "Slots");
+                name: "Roles");
         }
     }
 }
