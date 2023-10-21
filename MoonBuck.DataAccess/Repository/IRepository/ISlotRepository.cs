@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MoonBuck.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace MoonBuck.DataAccess.Repository.IRepository
 {
-    public interface IUnitOfWork
+    public interface ISlotRepository : IRepository<Slot> 
     {
-        IRoleRepository Role { get; }
-        ISlotRepository Slot { get; }
-        void Save();
+        void Update(Slot obj);
     }
 }

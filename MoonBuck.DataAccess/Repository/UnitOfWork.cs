@@ -12,10 +12,12 @@ namespace MoonBuck.DataAccess.Repository
     {
         private ApplicationDbContext _db;
         public IRoleRepository Role { get; private set; }
+        public ISlotRepository Slot { get; private set; }
         public UnitOfWork(ApplicationDbContext db)
         {
             _db = db;
             Role= new RoleRepository(_db);
+            Slot = new SlotRepository(_db);
 
         }
 
