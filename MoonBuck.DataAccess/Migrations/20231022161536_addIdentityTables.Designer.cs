@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MoonBuck.DataAccess.Data;
 
@@ -11,9 +12,11 @@ using MoonBuck.DataAccess.Data;
 namespace MoonBuck.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231022161536_addIdentityTables")]
+    partial class addIdentityTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -86,10 +89,6 @@ namespace MoonBuck.DataAccess.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -141,10 +140,6 @@ namespace MoonBuck.DataAccess.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
-
-                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -311,64 +306,42 @@ namespace MoonBuck.DataAccess.Migrations
                         {
                             Id = 1,
                             CafeName = "MoonBuck Toa Payoh",
-                            EndTime = new DateTime(2023, 10, 24, 9, 58, 47, 932, DateTimeKind.Local).AddTicks(825),
+                            EndTime = new DateTime(2023, 10, 24, 9, 51, 36, 462, DateTimeKind.Local).AddTicks(2712),
                             IsFilled = false,
                             PayRate = 9.0,
                             RoleId = 1,
-                            StartTime = new DateTime(2023, 10, 24, 0, 22, 47, 932, DateTimeKind.Local).AddTicks(810)
+                            StartTime = new DateTime(2023, 10, 24, 0, 15, 36, 462, DateTimeKind.Local).AddTicks(2698)
                         },
                         new
                         {
                             Id = 2,
                             CafeName = "MoonBuck Toa Payoh",
-                            EndTime = new DateTime(2023, 10, 25, 9, 58, 47, 932, DateTimeKind.Local).AddTicks(830),
+                            EndTime = new DateTime(2023, 10, 25, 9, 51, 36, 462, DateTimeKind.Local).AddTicks(2715),
                             IsFilled = false,
                             PayRate = 9.0,
                             RoleId = 2,
-                            StartTime = new DateTime(2023, 10, 25, 0, 22, 47, 932, DateTimeKind.Local).AddTicks(830)
+                            StartTime = new DateTime(2023, 10, 25, 0, 15, 36, 462, DateTimeKind.Local).AddTicks(2715)
                         },
                         new
                         {
                             Id = 3,
                             CafeName = "MoonBuck Tampines",
-                            EndTime = new DateTime(2023, 10, 25, 9, 58, 47, 932, DateTimeKind.Local).AddTicks(833),
+                            EndTime = new DateTime(2023, 10, 25, 9, 51, 36, 462, DateTimeKind.Local).AddTicks(2717),
                             IsFilled = false,
                             PayRate = 9.0,
                             RoleId = 2,
-                            StartTime = new DateTime(2023, 10, 25, 0, 22, 47, 932, DateTimeKind.Local).AddTicks(833)
+                            StartTime = new DateTime(2023, 10, 25, 0, 15, 36, 462, DateTimeKind.Local).AddTicks(2718)
                         },
                         new
                         {
                             Id = 4,
                             CafeName = "MoonBuck Hougang",
-                            EndTime = new DateTime(2023, 10, 26, 9, 58, 47, 932, DateTimeKind.Local).AddTicks(836),
+                            EndTime = new DateTime(2023, 10, 26, 9, 51, 36, 462, DateTimeKind.Local).AddTicks(2719),
                             IsFilled = false,
                             PayRate = 9.0,
                             RoleId = 2,
-                            StartTime = new DateTime(2023, 10, 26, 0, 22, 47, 932, DateTimeKind.Local).AddTicks(836)
+                            StartTime = new DateTime(2023, 10, 26, 0, 15, 36, 462, DateTimeKind.Local).AddTicks(2720)
                         });
-                });
-
-            modelBuilder.Entity("MoonBuck.Models.ApplicationUser", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
-
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Name")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PostalCode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("State")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("StreetAddress")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasDiscriminator().HasValue("ApplicationUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

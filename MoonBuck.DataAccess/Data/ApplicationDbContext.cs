@@ -1,9 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using MoonBuck.Models;
 
 namespace MoonBuck.DataAccess.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -11,8 +13,10 @@ namespace MoonBuck.DataAccess.Data
         }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Slot> Slots { get; set; }
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Role>().HasData(
                 new Role { Id = 1, Name = "Chef", DisplayOrder= 1},
                 new Role { Id = 2, Name = "Cashier", DisplayOrder = 2 },
